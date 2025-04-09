@@ -45,17 +45,17 @@ public class SecurityConfig {
                         .requestMatchers("/api/v1/tutorCourse/**").hasAnyAuthority(Role.TEACHER.name(), Role.ADMIN.name())
                         .requestMatchers("/api/v1/tutorSalary/**").hasAnyAuthority(Role.ADMIN.name())
                         .anyRequest().authenticated())
-                .exceptionHandling(exception-> exception.accessDeniedHandler(customAccessDeniedHandler))
+                .exceptionHandling(exception -> exception.accessDeniedHandler(customAccessDeniedHandler))
                 .httpBasic(Customizer.withDefaults())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
-                        .build();
+                .build();
     }
 
     @Bean
     public AuthenticationProvider authenticationProvider() {
         final DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-       authenticationProvider.setPasswordEncoder(new BCryptPasswordEncoder(12));
+        authenticationProvider.setPasswordEncoder(new BCryptPasswordEncoder(12));
         authenticationProvider.setUserDetailsService(userDetailsService);
         return authenticationProvider;
     }

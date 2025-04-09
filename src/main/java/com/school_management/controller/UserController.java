@@ -3,7 +3,6 @@ package com.school_management.controller;
 import com.school_management.dto.ResponseDTO;
 import com.school_management.dto.SignInRequestDTO;
 import com.school_management.dto.SignUpRequestDTO;
-import com.school_management.entity.User;
 import com.school_management.service.UserService;
 import com.school_management.util.Constant;
 import org.springframework.beans.factory.annotation.Autowired;

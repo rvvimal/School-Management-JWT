@@ -79,7 +79,7 @@ public class UserService {
         if (!encoder.matches(signInRequestDTO.getPassword(), user.getPassword())) {
             throw new AuthorizationDeniedException("Incorrect Password");
         }
-        authManager.authenticate(new UsernamePasswordAuthenticationToken(signInRequestDTO.getEmailId(),signInRequestDTO.getPassword()));
+        authManager.authenticate(new UsernamePasswordAuthenticationToken(signInRequestDTO.getEmailId(), signInRequestDTO.getPassword()));
         final String jwt = jwtService.generateToken(user);
         final String refreshToken = jwtService.generateRefreshToken(user);
         final Map<String, String> jwtAuthResp = new HashMap<>();
@@ -90,12 +90,11 @@ public class UserService {
 
     @Transactional
     public Map<String, String> refreshToken(final String refreshToken) {
-
-        String userEmailId = jwtService.extractUserName(refreshToken);
-        User user = userRepository.findByEmailId(userEmailId).orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        final String userEmailId = jwtService.extractUserName(refreshToken);
+        final User user = userRepository.findByEmailId(userEmailId).orElseThrow(() -> new ResourceNotFoundException("User not found"));
         if (jwtService.validateToken(refreshToken, user)) {
             var jwt = jwtService.generateToken(user);
-            Map<String, String> jwtAuthRep = new HashMap<>();
+            final Map<String, String> jwtAuthRep = new HashMap<>();
             jwtAuthRep.put("Token", jwt);
             jwtAuthRep.put("RefreshToken", refreshToken);
             return jwtAuthRep;

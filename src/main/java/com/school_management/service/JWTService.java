@@ -36,7 +36,7 @@ public class JWTService {
     }
 
     public String generateToken(final User user) {
-        Map<String, Object> claims = new HashMap<>();
+        final Map<String, Object> claims = new HashMap<>();
         claims.put("name", user.getName());
         claims.put("role", user.getRole());
         return Jwts.builder()
@@ -51,7 +51,7 @@ public class JWTService {
     }
 
     public String generateRefreshToken(final User user) {
-        Map<String, Object> claim = new HashMap<>();
+        final Map<String, Object> claim = new HashMap<>();
         claim.put("name", user.getName());
         claim.put("role", user.getRole());
         return Jwts.builder()
@@ -64,7 +64,7 @@ public class JWTService {
     }
 
     private SecretKey getKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(secretKey);
+        final byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
@@ -86,7 +86,7 @@ public class JWTService {
                 .getPayload();
     }
 
-    public boolean validateToken(final String token,final  UserDetails userDetails) {
+    public boolean validateToken(final String token, final UserDetails userDetails) {
 
         final String userName = extractUserName(token);
         return (userName.equals(userDetails.getUsername()) && !isTokenExpired(token));

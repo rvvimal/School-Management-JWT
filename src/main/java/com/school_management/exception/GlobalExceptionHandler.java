@@ -2,9 +2,6 @@ package com.school_management.exception;
 
 import com.school_management.dto.ResponseDTO;
 import com.school_management.util.Constant;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.MalformedJwtException;
-import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.security.SignatureException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -49,6 +46,21 @@ public class GlobalExceptionHandler {
         ResponseDTO responseDTO = new ResponseDTO(HttpStatus.NOT_FOUND.value(), "Endpoint not found", exception.getResourcePath());
         return new ResponseEntity<>(responseDTO, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(SignatureException.class)
+    public ResponseEntity<ResponseDTO> handleSignatureException(final SignatureException exception, WebRequest request) {
+        ResponseDTO responseDTO = new ResponseDTO(HttpStatus.FORBIDDEN.value(), exception.getMessage(), request.getDescription(false));
+        exception.printStackTrace();
+        return new ResponseEntity<>(responseDTO, HttpStatus.FORBIDDEN);
+    }
+
+    @ExceptionHandler(SecurityException.class)
+    public ResponseEntity<ResponseDTO> handleExpiredJwtException(final SecurityException exception, WebRequest request) {
+        ResponseDTO responseDTO = new ResponseDTO(HttpStatus.FORBIDDEN.value(), exception.getMessage(), request.getDescription(false));
+        exception.printStackTrace();
+        return new ResponseEntity<>(responseDTO, HttpStatus.FORBIDDEN);
+    }
+//
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ResponseDTO> handleStudentException(final Exception exception, WebRequest request) {

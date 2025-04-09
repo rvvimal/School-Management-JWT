@@ -18,9 +18,9 @@ public class FeePayment {
     private int id;
     @Column(name = "date")
     private Date date;
-    @Column(name = "term")
+    @Column(name = "fee_term")
     @Size(min = 3, message = "Size should be greater than four")
-    private String term;
+    private String fee_Term;
     @Column(name = "Amount")
     private double Amount;
     @Column(name = "status")

@@ -53,8 +53,8 @@ public class FeePaymentService {
         if (feePayment.getStatus() != null) {
             feePayments.setStatus(feePayment.getStatus());
         }
-        if (feePayment.getTerm() != null) {
-            feePayments.setTerm(feePayment.getTerm());
+        if (feePayment.getFee_Term() != null) {
+            feePayments.setFee_Term(feePayment.getFee_Term());
         }
 
         return this.feePaymentRepository.save(feePayments);

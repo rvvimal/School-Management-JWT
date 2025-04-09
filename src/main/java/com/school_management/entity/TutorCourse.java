@@ -14,7 +14,6 @@ public class TutorCourse {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
-    @Size(min = 4, message = "Size should be greater than four")
     @ManyToOne()
     @JoinColumn(name = "course_id")
     private Course course;
